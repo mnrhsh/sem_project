@@ -59,6 +59,9 @@ if(isset($_POST['login'])){
       <td align="center"><input type="password" name="password" size="30" required> </td>
     </tr>
     <tr>
+      <td align="right"><label><input type="checkbox" name="remember">Remember me</label></td>
+    </tr>
+    <tr>
       <td align="right" colspan="2"> <a href="ResetPassword.php" style="text-decoration: underline;"> Forgot Password </a></td>
     </tr>
     <tr>
