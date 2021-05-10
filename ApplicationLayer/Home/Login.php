@@ -52,14 +52,14 @@ if(isset($_POST['login'])){
     </tr>
     <tr>
       <td align="right">Email : </td>
-      <td align="center"><input type="text" name="email" size="30" required> <br></td>
+      <td align="center"><input type="text" name="email" size="30" value="<?php if (isset($_COOKIE['email'])) {echo $_COOKIE['email'];} ?>"required> <br></td>
     </tr>
     <tr>
       <td align="right">Password : </td>
-      <td align="center"><input type="password" name="password" size="30" required> </td>
+      <td align="center"><input type="password" name="password" size="30" value="<?php if(isset($_COOKIE["password"])) { echo $_COOKIE["password"]; } ?>"  required> </td>
     </tr>
     <tr>
-      <td align="right"><label><input type="checkbox" name="remember">Remember me</label></td>
+      <td align="right"><label><input type="checkbox" name="rememeber" <?php if(isset($_COOKIE["password"]) && isset($_COOKIE["email"])) { echo 'checked'; } ?>/>Remember me</label></td>
     </tr>
     <tr>
       <td align="right" colspan="2"> <a href="ResetPassword.php" style="text-decoration: underline;"> Forgot Password </a></td>

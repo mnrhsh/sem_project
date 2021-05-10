@@ -31,6 +31,15 @@ class userController{
                         $namedb = $user->sp_getName();
                         $_SESSION["name"] = $namedb;
 
+                        if(!empty($_POST['rememeber'])){
+                            setcookie("email",$_POST['email'], time()+ (86400*30));
+                            setcookie("password",$_POST['password'], time()+ (86400*30));
+                        }
+                        else{
+                            setcookie("email","");
+                            setcookie("password","");
+                        }
+
                         header("location: ../../ApplicationLayer/ManageUser/SPHomepage.php");
                     }
                     else{
@@ -50,6 +59,15 @@ class userController{
                         $namedb = $user->cus_getName();
                         $_SESSION["name"] = $namedb;
 
+                        if(!empty($_POST['rememeber'])){
+                            setcookie("email",$_POST['email'], time()+ (86400*30));
+                            setcookie("password",$_POST['password'], time()+ (86400*30));
+                        }
+                        else{
+                            setcookie("email","");
+                            setcookie("password","");
+                        }
+
                         header("location: ../../ApplicationLayer/ManageUser/CustomerHomepage.php");
                     }
                     else{
@@ -68,6 +86,15 @@ class userController{
                         $_SESSION["id"] = $iddb;
                         $namedb = $user->rn_getName();
                         $_SESSION["name"] = $namedb;
+
+                        if(!empty($_POST['rememeber'])){
+                            setcookie("email",$_POST['email'], time()+ (86400*30));
+                            setcookie("password",$_POST['password'], time()+ (86400*30));
+                        }
+                        else{
+                            setcookie("email","");
+                            setcookie("password","");
+                        }
 
                         header("location: ../../ApplicationLayer/ManageUser/RunnerHomepage.php");
                     }
@@ -98,6 +125,15 @@ class userController{
                     $_SESSION["user_id"] = $user->user_id; 
                     $_SESSION["name"] = "Sec4Group5";
                     header("location: ../../ApplicationLayer/ManageUser/AdminHomepage.php");
+
+                    if(!empty($_POST['rememeber'])){
+                            setcookie("email",$_POST['email'], time()+ (86400*30));
+                            setcookie("password",$_POST['password'], time()+ (86400*30));
+                        }
+                        else{
+                            setcookie("email","");
+                            setcookie("password","");
+                        }
                 }
                 else {
                     $message = "Email or password is wrong.";
