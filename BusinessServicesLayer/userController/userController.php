@@ -11,6 +11,7 @@ class userController{
         $user->email = $_POST['email'];
         $user->password = $_POST['password'];
         $user->user_type = $_POST['user_type'];
+        $user->active = 1;
 
         if($user->check() > 0){
             $pwdb = $user->getPw();
@@ -50,14 +51,10 @@ class userController{
                     }
                 }
                 else if($user->user_type == "Customer"){
-                    $_SESSION["status"] = "truecust";
-                    $_SESSION["loggedin"] = true;
-                    $_SESSION["user_id"] = $user->user_id;
-                    if($user->cus_firstCheck() > 0){ 
-                        $iddb = $user->cus_getId();
-                        $_SESSION["id"] = $iddb;
-                        $namedb = $user->cus_getName();
-                        $_SESSION["name"] = $namedb;
+                    if($user->verify() > 0){
+                        $_SESSION["status"] = "truecust";
+                        $_SESSION["loggedin"] = true;
+                        $_SESSION["user_id"] = $user->user_id;
 
                         if(!empty($_POST['rememeber'])){
                             setcookie("email",$_POST['email'], time()+ (86400*30));
@@ -67,12 +64,24 @@ class userController{
                             setcookie("email","");
                             setcookie("password","");
                         }
-
-                        header("location: ../../ApplicationLayer/ManageUser/CustomerHomepage.php");
+                        if($user->cus_firstCheck() > 0){ 
+                            $iddb = $user->cus_getId();
+                            $_SESSION["id"] = $iddb;
+                            $namedb = $user->cus_getName();
+                            $_SESSION["name"] = $namedb;
+                            
+                            header("location: ../../ApplicationLayer/ManageUser/CustomerHomepage.php");
+                        }
+                        else{
+                            header("location: ../../ApplicationLayer/ManageUser/CustomerFirstProfile.php");
+                            exit;
+                        }
                     }
                     else{
-                        header("location: ../../ApplicationLayer/ManageUser/CustomerFirstProfile.php");
-                        exit;
+                        $message = "Please verify your account through link that send to your email first!";
+                                    echo "<script type='text/javascript'>alert('$message');
+                                    window.location = '../../ApplicationLayer/Home/Login.php';</script>";
+                                    exit;
                     }
                 }
                 else if($user->user_type == "Runner"){
@@ -113,7 +122,7 @@ class userController{
             }
         }
         else {
-            $message = "You have not sign up yet. Please sign up now.";
+            $message = "You have not sign up yet! Please sign up now.";
             echo "<script type='text/javascript'>alert('$message');
             window.location = '../../ApplicationLayer/Home/Homepage.php';</script>";
         }
@@ -149,6 +158,8 @@ class userController{
         $user->email = $_POST['email'];
         $user->password = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $user->user_type = $_POST['user_type'];
+        $user->hash = md5(rand(0,1000));
+        $user->active = 0;
 
         if(!filter_var($user->email, FILTER_VALIDATE_EMAIL)){
             $message = "Please insert proper email!";
@@ -165,9 +176,48 @@ class userController{
         }
 
         if($user->signup() > 0){
-            $message = "Successfully Registered!";
-            echo "<script type='text/javascript'>alert('$message');
-            window.location = '../../ApplicationLayer/Home/Login.php';</script>";
+            require_once "../../PHPMailer/PHPMailer.php";
+            require_once "../../PHPMailer/SMTP.php";
+            require_once "../../PHPMailer/Exception.php";
+
+            $mail = new PHPMailer();
+
+            $mail->isSMTP();
+            $mail->Host =  "smtp.gmail.com";
+            $mail->SMTPAuth = true;
+            $mail->Username = "semtest98@gmail.com";
+            $mail->Password = "karwei98+";
+            $mail->Port = 465;
+            $mail->SMTPSecure = "ssl";
+                    
+            $mail->isHTML(true);
+            $mail->addAddress($user->email);
+            $mail->setFrom("semtest98@gmail.com", "Mr/Mrs/Ms");
+            $mail->Subject = "Verification";                
+            $mail->Body = "Thanks for signing up!<br>
+                            Your account has been created, you can login with the following emails after you have activated your
+                            account by pressing the url below.<br><br>
+  
+                            -----------------------------------<br>
+                            Email: $user->email<br>
+                            -----------------------------------<br><br>
+                           <a href='http://localhost/sem_project/ApplicationLayer/Home/verify.php?email=$user->email&hash=$user->hash'> http://localhost/sem_project/ApplicationLayer/Home/verify?email=$user->email&hash=$user->hash</a> 
+                               <br> <br>
+                               Kindly Regards,<br> 
+                               Speeda.";
+            
+            if($mail->send()){
+                $message = "Successfully Registered! Please check your email for authorize your account.";
+                echo "<script type='text/javascript'>alert('$message');
+                window.location = '../../ApplicationLayer/Home/Login.php';</script>";
+            } // Send our email
+            else
+            {
+                $message = "Failed while sending email";
+                echo "<script type='text/javascript'>alert('$message');
+                window.location = '../../ApplicationLayer/Home/CustomerSignup.php';</script>";
+            }
+            
         }
         else{
             $message = "Error! Please try again.";
@@ -182,6 +232,7 @@ class userController{
         $user->email = $_POST['email'];
         $user->password = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $user->user_type = $_POST['user_type'];
+        $user->active = 1;
         if(!filter_var($user->email, FILTER_VALIDATE_EMAIL)){
             $message = "Please insert proper email!";
             echo "<script type='text/javascript'>alert('$message');
@@ -216,8 +267,8 @@ class userController{
                 $mail->isSMTP();
                 $mail->Host =  "smtp.gmail.com";
                 $mail->SMTPAuth = true;
-                $mail->Username = "sdwsec4grp5@gmail.com";
-                $mail->Password = "SEC4@grp5";
+                $mail->Username = "semtest98@gmail.com";
+                $mail->Password = "karwei98+";
                 $mail->Port = 465;
                 $mail->SMTPSecure = "ssl";
 
@@ -225,11 +276,11 @@ class userController{
                     
                     $mail->isHTML(true);
                     $mail->addAddress($user->email);
-                    $mail->setFrom("sdwsec4grp5@gmail.com", "Mr/Mrs/Ms");
+                    $mail->setFrom("semtest98@gmail.com", "Mr/Mrs/Ms");
                     $mail->Subject = "Fill in Your Personal Details";                
                     $mail->Body = "Hi, <br><br> 
                                Please click on the link below to fill in your details: <br> 
-                               <a href='http://localhost/project/ApplicationLayer/ManageUser/RunnerFirstProfile.php?user_id=$getId&token=$user->token'> http://localhost/project/ApplicationLayer/ManageUser/RunnerFirstProfile?user_id=$getId&token=$user->token </a> 
+                               <a href='http://localhost/sem_project/ApplicationLayer/ManageUser/RunnerFirstProfile.php?user_id=$getId&token=$user->token'> http://localhost/sem_project/ApplicationLayer/ManageUser/RunnerFirstProfile?user_id=$getId&token=$user->token </a> 
                                <br> <br>
                                Kindly Regards,<br> 
                                Speeda.";
@@ -253,7 +304,7 @@ class userController{
                     $mail->Subject = "Fill in Your Personal Details";                
                     $mail->Body = "Hi, <br><br> 
                                Please click on the link below to fill in your details: <br> 
-                               <a href='http://localhost/project/ApplicationLayer/ManageUser/SPFirstProfile.php?user_id=$getId&token=$user->token'> http://localhost/project/ApplicationLayer/ManageUser/SPFirstProfile.php?user_id=$getId&token=$user->token </a> 
+                               <a href='http://localhost/sem_project/ApplicationLayer/ManageUser/SPFirstProfile.php?user_id=$getId&token=$user->token'> http://localhost/sem_project/ApplicationLayer/ManageUser/SPFirstProfile.php?user_id=$getId&token=$user->token </a> 
                                <br> <br>
                                Kindly Regards,<br> 
                                Speeda.";
@@ -307,32 +358,33 @@ class userController{
                 $mail->isSMTP();
                 $mail->Host =  "smtp.gmail.com";
                 $mail->SMTPAuth = true;
-                $mail->Username = "projectsdwsec4grp5@gmail.com";
-                $mail->Password = "SEC4@grp5";
+                $mail->Username = "semtest98@gmail.com";
+                $mail->Password = "karwei98+";
                 $mail->Port = 465;
                 $mail->SMTPSecure = "ssl";
-
+                    
                 $mail->isHTML(true);
                 $mail->addAddress($user->email);
-                $mail->setFrom("projectsdwsec4grp5@gmail.com", "Mr/Mrs/Ms");
-                $mail->Subject = "Reset Password";                
+                $mail->setFrom("semtest98@gmail.com", "Mr/Mrs/Ms");
+                $mail->Subject = "Verification";                
                 $mail->Body = "Hi, <br><br> 
                                In order to reset your password, please click on the link below: <br> 
-                               <a href='http://localhost/project/ApplicationLayer/Home/SetPassword.php?user_id=$getId&token=$user->token'> http://localhost/project/ApplicationLayer/Home/SetPassword.php?user_id=$getId&token=$user->token </a> 
+                               <a href='http://localhost/sem_project/ApplicationLayer/Home/SetPassword.php?user_id=$getId&token=$user->token'> http://localhost/sem_project/ApplicationLayer/Home/SetPassword.php?user_id=$getId&token=$user->token </a> 
                                <br> <br>
                                Kindly Regards,<br> 
-                               AskRunner.";
-
+                               Speeda.";
+            
                 if($mail->send()){
-                    $message = "Please check your email inbox.";
+                    $message = "Please check your email inbox";
                     echo "<script type='text/javascript'>alert('$message');
-                    window.location = '../../ApplicationLayer/Home/Homepage.php';</script>";
+                    window.location = '../../ApplicationLayer/Home/Login.php';</script>";
+                } // Send our email
+                else
+                {
+                    $message = "Failed while sending email";
+                    echo "<script type='text/javascript'>alert('$message');
+                    window.location = '../../ApplicationLayer/Home/CustomerSignup.php';</script>";
                 }
-                else{
-                    $message = "Error!";
-                    echo "<script type='text/javascript'>alert('$message');
-                    window.location = '../../ApplicationLayer/Home/Homepage.php';</script>";
-            }
 
             }
             else{
