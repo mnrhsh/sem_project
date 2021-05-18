@@ -135,8 +135,8 @@ if(isset($_POST['decqty']) && $_POST['product_quantity'] > 0){
     <?php } ?>
     
       <tr style="height: 5%">
-        <td colspan="4" align="right" style="font-size: 25px">Subtotal</td>
-        <td align="center">RM <?=$subtotal?></td>
+        <td colspan="4" align="center" style="font-size: 25px">Subtotal</td>
+        <td align="center"colspan="2" >RM <?=$subtotal?></td>
       </tr>
   </table>
   <table width="80%" align="center">
