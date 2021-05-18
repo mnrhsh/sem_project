@@ -72,8 +72,6 @@ else if($gd_variationn == "Lifestyle"){
     <tr>
       <td><img src="../../images/GUIImages/arrows.png" onclick="window.location.href='GoodsVariation.php'" style="width: 25px;height: 25px"></td>
       <td align="right">Price: <select id="price">
-	
-	  
           <option value="none">None</option>
           <option value="asc">Low to High</option>
           <option value="desc">High to low</option>

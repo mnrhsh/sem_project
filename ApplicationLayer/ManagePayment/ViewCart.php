@@ -77,12 +77,14 @@ if(isset($_POST['decqty']) && $_POST['product_quantity'] > 0){
       <td align="center">Welcome <?=$_SESSION['name']?>! (Customer)</td>
     </tr>
   </table>
-  <table id="scd_detail" width="70%" height="70%" align="center">
+  <table id="scd_detail" width="70%" height="70%" align="center" border="1">
     <tr style="border-bottom: 1px solid black;height: 8%" > <hr>
-        <td align="center" colspan="2">Product</td>
+        <td align="center">product image</td>
+        <td align="center">name</td>
         <td align="center">Quantity</td>
         <td align="center">Price (RM)</td>
         <td align="center">Total Price (RM)</td>
+        <td align="center">Action</td>
     </tr>
     <?php
     if($datacheck == 0){
@@ -118,18 +120,17 @@ if(isset($_POST['decqty']) && $_POST['product_quantity'] > 0){
     ?>
 
       <tr >
-        <td width="20%"><img src="<?php echo $image_src?>" style="width: 100px;height: 100px;vertical-align: middle;"></td>
-        <td><?=$row["product_name"]?></td>
+        <td align="center" width="20%"><img src="<?php echo $image_src?>" style="width: 100px;height: 100px;vertical-align: middle;"></td>
+        <td align="center"><?=$row["product_name"]?></td>
         <form action="" method="POST">
         <input type="hidden" name="product_id" value="<?php echo $row["product_id"]?>"><input type="hidden" name="product_quantity" value="<?php echo $row["product_quantity"]?>">
         <td align="center" width="15%"><button name='decqty'>-</button>&nbsp;&nbsp;<?=$row["product_quantity"]?>&nbsp;&nbsp;<button name='incqty'>+ </button></td>
         </form>
         <td align="center" width="15%">RM <?=$row["product_price"]?></td>
         <td align="center" width="15%">RM <?=$total_price?> </td>
-      </tr>
-      <tr style="border-bottom: 1px solid black">
+      
         <form action="" method="POST">
-          <td colspan="5" align="right"><input type="hidden" name="product_id" value="<?=$row["product_id"]?>"><button type="submit" id="delete_btn" name="delete" onclick="return confirm('Are you sure you want to delete?')">Delete</button></td></form>
+          <td colspan="5" align="center"><input type="hidden" name="product_id" value="<?=$row["product_id"]?>"><button  type="submit" id="delete_btn" name="delete" onclick="return confirm('Are you sure you want to delete?')">Delete</button></td></form>
       </tr>
     <?php } ?>
     
