@@ -77,6 +77,7 @@ if(isset($_POST["track"])){
         }
         
         $total = $row["total_price"];
+        $product = $row["product_price"];
     ?>
       <tr style="border-top: 1px solid black">
         <td width="20%"><img src="<?php echo $image_src?>" style="width: 100px;height: 100px;vertical-align: middle;"></td>
@@ -86,8 +87,16 @@ if(isset($_POST["track"])){
       </tr>
     <?php } ?>
       <tr valign="bottom" style="border-top: 1px solid black;height: 10%">
+        <td colspan="3" align="right" style="font-size: 20px">GST</td>
+        <td align="center">RM <?php echo (0.06*$product)?></td>    
+      </tr>
+      <tr valign="bottom" style="border-top: 0px solid black;height: 10%">
+        <td colspan="3" align="right" style="font-size: 20px">Delivery Charge</td>
+        <td align="center">RM 5.0</td>    
+      </tr>
+      <tr valign="bottom" style="border-top: 0px solid black;height: 10%">
         <td colspan="3" align="right" style="font-size: 25px">Total</td>
-        <td align="center">RM <?php echo $total?></td>
+        <td align="center">RM <?php echo $total?></td>    
       </tr>
   </table>
   <table align="center">
