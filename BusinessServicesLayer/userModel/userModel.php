@@ -1,7 +1,7 @@
 <?php
 
 class userModel{
-    public $username,$email,$phone_num,$password,$user_type,$sp_imgpath,$sp_name,$sp_address,$sp_shop_name,$new_pw,$new_pw2,$accname,$accnum,$bankname,$token,$set_pw,$new_token,$user_id,$sp_ic,$sp_icpath,$rn_icpath,$rn_name,$rn_ic,$rn_licensepath,$rn_gender,$rn_address,$status;
+    public $username,$email,$phone_num,$password,$user_type,$sp_imgpath,$sp_name,$sp_address,$sp_shop_name,$new_pw,$new_pw2,$accname,$accnum,$bankname,$token,$set_pw,$new_token,$user_id,$sp_ic,$sp_icpath,$rn_icpath,$rn_name,$rn_ic,$rn_licensepath,$rn_gender,$rn_address,$status,$hash,$active;
 
     // create a new PDO connection
     public function connect(){
@@ -45,10 +45,19 @@ class userModel{
         return $pwdb;
     }
 
+    function verify(){
+        $sql = "select * from user where email=:email and user_type=:user_type and active=:active";
+        $args = [':email'=>$this->email, ':user_type'=>$this->user_type, ':active'=>$this->active];
+        $stmt = $this->run($sql,$args);
+        $count = $stmt->rowCount();
+        return $count;
+    }
+
     //sign up//
     function signup(){
-        $sql = "insert into user(email,password,user_type) values(:email,:password,:user_type)";
-        $args = [':email'=>$this->email, ':password'=>$this->password, ':user_type'=>$this->user_type];
+        $sql = "insert into user(email,password,user_type,hash,active) values(:email,:password,:user_type,:hash,:active)";
+        $args = [':email'=>$this->email, ':password'=>$this->password, ':user_type'=>$this->user_type, ':hash'=>$this->hash,
+                ':active'=>$this->active];
         $stmt = $this->run($sql, $args);
         $count = $stmt->rowCount();
         return $count;
