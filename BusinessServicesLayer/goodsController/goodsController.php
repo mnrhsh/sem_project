@@ -608,7 +608,7 @@ class goodsController{
 
                 $output .= '
                     <form action="" method="POST">
-                    <td style="padding: 5px;"><button type="button" id="seeProduct_btn" style="width: 180px;height: 230px;border:transparent;" onclick=\'location.href='.$location.'\'><img src='.$image_src.' style="width:160px;height:140px;padding-left:5px;padding-right:7px;"> <br><br> '.$row['gd_name'].' <br><br> RM '.$row['gd_price'].'</button></td>';
+                    <td style="padding: 5px;"><button type="button" id="seeProduct_btn" style="width: 190px;height: 270px;border:transparent;" onclick=\'location.href='.$location.'\'><img src='.$image_src.' style="width:160px;height:140px;padding-left:5px;padding-right:7px;"> <br><br> '.$row['gd_name'].' <br><br> RM '.$row['gd_price'].' <br><br> '.$row['sp_shop_name'].' </button></td>';
 
                 if($i % 5 == 0){
                     $output .='</tr><tr>';

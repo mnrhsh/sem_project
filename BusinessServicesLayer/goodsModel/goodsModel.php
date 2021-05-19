@@ -268,25 +268,25 @@ class goodsModel{
 
     //Customer view variation product//
     function viewNormal(){
-        $sql = "select * from goods where gd_variation=:gd_variation order by gd_id ASC limit $this->start, $this->limit";
+        $sql = "select * from goods INNER JOIN sp ON goods.sp_id = sp.sp_id where gd_variation=:gd_variation order by gd_id ASC limit $this->start, $this->limit";
         $args = [':gd_variation'=>$this->gd_variation];
         return $this->run($sql, $args);
     }
 
     function viewLow(){
-        $sql = "select * from goods where gd_variation=:gd_variation order by gd_price ASC limit $this->start, $this->limit";
+        $sql = "select * from goods INNER JOIN sp ON goods.sp_id = sp.sp_id where gd_variation=:gd_variation order by gd_price ASC limit $this->start, $this->limit";
         $args = [':gd_variation'=>$this->gd_variation];
         return $this->run($sql, $args);
     }
 
     function viewHigh(){
-        $sql = "select * from goods where gd_variation=:gd_variation order by gd_price DESC limit $this->start, $this->limit";
+        $sql = "select * from goods INNER JOIN sp ON goods.sp_id = sp.sp_id where gd_variation=:gd_variation order by gd_price DESC limit $this->start, $this->limit";
         $args = [':gd_variation'=>$this->gd_variation];
         return $this->run($sql, $args);
     }
 
     function countNone(){
-        $sql = "select * from goods where gd_variation=:gd_variation";
+        $sql = "select * from goods INNER JOIN sp ON goods.sp_id = sp.sp_id where gd_variation=:gd_variation";
         $args = [':gd_variation'=>$this->gd_variation];
         $stmt = $this->run($sql, $args);
         $count = $stmt->rowCount();
@@ -294,25 +294,25 @@ class goodsModel{
     }
 
     function viewSearchNormal(){
-        $sql = "select * from goods where gd_variation=:gd_variation and gd_name like '%$this->search%' order by gd_id ASC limit $this->start, $this->limit";
+        $sql = "select * from goods INNER JOIN sp ON goods.sp_id = sp.sp_id where gd_variation=:gd_variation and gd_name like '%$this->search%' order by gd_id ASC limit $this->start, $this->limit";
         $args = [':gd_variation'=>$this->gd_variation];
         return $this->run($sql, $args);
     }
 
     function viewSearchLow(){
-        $sql = "select * from goods where gd_variation=:gd_variation and gd_name like '%$this->search%' order by gd_price ASC limit $this->start, $this->limit";
+        $sql = "select * from goods INNER JOIN sp ON goods.sp_id = sp.sp_id where gd_variation=:gd_variation and gd_name like '%$this->search%' order by gd_price ASC limit $this->start, $this->limit";
         $args = [':gd_variation'=>$this->gd_variation];
         return $this->run($sql, $args);
     }
 
     function viewSearchHigh(){
-        $sql = "select * from goods where gd_variation=:gd_variation and gd_name like '%$this->search%' order by gd_price DESC limit $this->start, $this->limit";
+        $sql = "select * from goods INNER JOIN sp ON goods.sp_id = sp.sp_id where gd_variation=:gd_variation and gd_name like '%$this->search%' order by gd_price DESC limit $this->start, $this->limit";
         $args = [':gd_variation'=>$this->gd_variation];
         return $this->run($sql, $args);
     }
 
     function countSearch(){
-        $sql = "select * from goods where gd_variation=:gd_variation and gd_name like '%$this->search%'";
+        $sql = "select * from goods INNER JOIN sp ON goods.sp_id = sp.sp_id where gd_variation=:gd_variation and gd_name like '%$this->search%'";
         $args = [':gd_variation'=>$this->gd_variation];
         $stmt = $this->run($sql, $args);
         $count = $stmt->rowCount();
@@ -322,7 +322,7 @@ class goodsModel{
     //customer view product//
     function viewProduct(){
         $sql = "select * from goods where gd_id=:gd_id";
-        $args = [':gd_id'=>$this->gd_id];
+        $args = [':gd_id'=>$this->gd_id, ''];
         return $this->run($sql, $args);
     }
 
