@@ -47,7 +47,7 @@ if(isset($_POST["track"])){
 
     </tr>
     <tr>
-      <td colspan="4" align="center"><h2>Thank you for your purchase!</h2></td>
+      <td colspan="4" align="center"><h2>Thank you for your purchase!!</h2></td>
     </tr>
   </table>
   <table id="scd_detail" width="70%" height="70%" align="center" >
