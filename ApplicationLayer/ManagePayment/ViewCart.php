@@ -89,7 +89,7 @@ if(isset($_POST['decqty']) && $_POST['product_quantity'] > 0){
     <?php
     if($datacheck == 0){
       echo "<tr>
-      <td colspan='5' align='center'><h2>No product yet</h2></td>
+      <td colspan='6' align='center'><h2>No product yet</h2></td>
       </tr>
       </table>";
     }
