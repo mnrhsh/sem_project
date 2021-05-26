@@ -542,7 +542,7 @@ class foodController{
     function food_viewVariation(){
         $food = new foodModel();
         $food->fd_variation = $_POST['variation'];
-        $food->limit = 50;
+        $food->limit = 5;
         $page = 1;
 
         if($_POST['page'] > 1){
