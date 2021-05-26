@@ -209,6 +209,7 @@ if(isset($_POST["continue"])){
     var pay = "<?php echo $total?>";
     var num = parseInt(pay).toFixed();
     var usd = (num / 4);
+    var myr = (num/4);
     
     paypal.Buttons({
       createOrder: function(data, actions) {
