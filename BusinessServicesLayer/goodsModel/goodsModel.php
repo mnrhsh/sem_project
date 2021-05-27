@@ -322,7 +322,7 @@ class goodsModel{
     //customer view product//
     function viewProduct(){
         $sql = "select * from goods where gd_id=:gd_id";
-        $args = [':gd_id'=>$this->gd_id, ''];
+        $args = [':gd_id'=>$this->gd_id];
         return $this->run($sql, $args);
     }
 
