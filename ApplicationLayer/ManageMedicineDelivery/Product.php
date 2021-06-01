@@ -190,9 +190,7 @@ if(isset($_POST['addcart'])){
         else if($row['med_variation'] == "Tool"){
           $show_variation = "Health Tool";
         }
-        else if($row['med_variation'] == "Herbal"){
-          $show_variation = "Herbal";
-        }
+       
 
       ?>
         <tr> <input type="hidden" name="id" size="30" value="<?php echo $row['med_id']?>"><input type="hidden" name="sp_id" size="30" value="<?php echo $row['sp_id']?>"><input type="hidden" name="imgpath" size="30" value="<?php echo $row['med_coverpath']?>"><input type="hidden" name="type" size="30" value="Medicine">

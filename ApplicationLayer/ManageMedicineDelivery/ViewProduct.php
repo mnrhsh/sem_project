@@ -31,9 +31,7 @@ else if($med_variationn == "Food"){
 else if($med_variationn == "Tool"){
   $name = "Health Tool";
 }
-else if($med_variationn == "Herbal"){
-  $name = "Herbal";
-}
+
 
 
 ?>

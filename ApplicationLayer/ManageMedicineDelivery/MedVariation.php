@@ -72,8 +72,12 @@ if(isset($_POST["variation"])){
       <td><button type="submit" name="variation" value="Personal" style="width: 120px;height: 120px"> Personal Care <br> <br> <img src="../../images/GUIImages/toiletries.png" style="width:50px;height:50px;border:0"/>  </button></td>
       <td><button type="submit" name="variation" value="Food" style="width: 120px;height: 120px"> Health Food<br> <br> <img src="../../images/GUIImages/protein-shake.png" style="width:50px;height:50px;border:0"/>  </button></td>
       <td><button type="submit" name="variation" value="Tool" style="width: 120px;height: 120px"> Health Tool<br> <br> <img src="../../images/GUIImages/aid.png" style="width:50px;height:50px;border:0"/>  </button></td>
+
       <td><button type="submit" name="variation" value="Herbal" style="width: 120px;height: 120px"> Herbal<br> <br> <img src="../../images/GUIImages/herbal.PNG" style="width:50px;height:50px;border:0"/>  </button></td>
     </tr>
+
+         
+
     <tr>
       <td colspan="5"><button type="button" name="back" onclick="window.location.href='../ManageUser/CustomerHomepage.php'"> Back </button></td>
     </tr>
