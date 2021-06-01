@@ -64,7 +64,7 @@ if(isset($_POST['getData'])){
           <option value="Personal">Personal Care</option>
           <option value="Food">Health Food</option>
           <option value="Tool">Health Tool</option>
-          <option value="Herbal">Herbal</option>
+         
           </select></td>
       <td align="center">Search: <input type="text" size="20" id="search_box" placeholder="Search name here"> </td>
     </tr>
