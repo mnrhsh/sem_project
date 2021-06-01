@@ -112,7 +112,10 @@ if(!isset($_SESSION["loggedin"])){
         }
         else if($row['med_variation'] == "Tool"){
           $show_variation = "Health Tool";
-        }      
+        }  
+        else if($row['med_variation'] == "Herbal"){
+          $show_variation = "Herbal";
+        }  
 
         $image = $row['med_coverpath'];
         $image_src = "../../images/MedicineImages/".$image;
