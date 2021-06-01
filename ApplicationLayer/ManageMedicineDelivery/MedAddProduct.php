@@ -92,6 +92,7 @@ if(isset($_POST['add'])){
           <option value="Personal">Personal Care</option>
           <option value="Food">Health Food</option>
           <option value="Tool">Health Tool</option>
+         <option value="Herbal">Herbal</option>
          
       </select> </td> 
     </tr>

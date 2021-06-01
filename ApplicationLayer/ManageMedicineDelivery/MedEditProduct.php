@@ -101,6 +101,7 @@ if(isset($_POST['update'])){
           <option value="Personal" <?php if ($row['med_variation'] == "Personal" ) echo 'selected' ; ?> >Personal Care</option>
           <option value="Food" <?php if ($row['med_variation'] == "Food" ) echo 'selected' ; ?> >Health Food</option>
           <option value="Tool" <?php if ($row['med_variation'] == "Tool" ) echo 'selected' ; ?> >Health Tool</option>
+         <option value="Herbal" <?php if ($row['med_variation'] == "Herbal" ) echo 'selected' ; ?> >Herbal</option>
          
       </select> </td>
     </tr>
